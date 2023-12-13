@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bitcoin-value-a
+  # namespace: sample
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bitcoin-value-a
+  template:
+    metadata:
+      labels:
+        app: bitcoin-value-a
+    spec:
+      containers:
+        - name: bitcoin-value-a
+          image: bitcoinvalues.azurecr.io/bitcoin-service-a:1.0.0
+          ports:
+            - containerPort: 5000
+              # hostPort: 5000
+              # protocol: TCP
+          # livenessProbe:
+          #   httpGet:
+          #     path: /healthz
+          #     port: 80
+          #   initialDelaySeconds: 3
+          #   periodSeconds: 3
+          # readinessProbe:
+          #   httpGet:
+          #     path: /readiness
+          #     port: 80
+          #   initialDelaySeconds: 5
+          #   periodSeconds: 5
+          imagePullPolicy: Always
+      # imagePullSecrets:
+      #   - name: acr-secret
+
+---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: bitcoin-value-a-loadbalancer
+# spec:
+#   type: LoadBalancer
+#   ports:
+#   - port: 80
+#     targetPort: 5000
+#   selector:
+#     app: bitcoin-value-a
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bitcoin-value-a
+spec:
+  type: ClusterIP
+  ports:
+  - port: 5000
+  selector:
+    app: bitcoin-value-a
+

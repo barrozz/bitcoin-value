@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: api-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+    - host: gentle-fish-k8s-0v0agkf6.hcp.westeurope.azmk8s.io
+      http:
+        paths:
+          - path: "/service-A"
+            pathType: Prefix
+            backend:
+              service:
+                name: service-a
+                port:
+                  number: 80
+          - path: "/service-B"
+            pathType: Prefix
+            backend:
+              service:
+                name: service-b
+                port:
+                  number: 80

@@ -1,0 +1,12 @@
+
+# regenerate kubeconfig
+az aks get-credentials --resource-group $(terraform output -raw resource_group_name) --name $(terraform output -raw kubernetes_cluster_name)
+
+# az ad sp create-for-rbac --skip-assignment
+
+{
+  "appId": "423873fb-472d-4991-a9da-92e8ab5b5954",
+  "displayName": "azure-cli-2023-12-12-12-52-22",
+  "password": "flj8Q~9I-1uEXKlw4ltU-4r2wPBmWV8M0l.B~a4R",
+  "tenant": "57cc8c6d-b80f-4909-9677-f37e538d78b7"
+}

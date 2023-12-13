@@ -1,0 +1,86 @@
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: bitcoin-ingress
+#   # namespace: sample
+#   # annotations:
+#   #   kubernetes.io/ingress.class: nginx
+#   #   nginx.ingress.kubernetes.io/rewrite-target: /
+#   #   nginx.ingress.kubernetes.io/ssl-redirect: "false"
+# spec:
+#   ingressClassName: nginx
+#   rules:
+#   - http:
+#       paths:
+#       - path: /ServiceA
+#         pathType: Prefix
+#         backend:
+#           service:
+#             name: bitcoin-value-a
+#             port:
+#               # number: 80
+#               number: 5000
+#       # - path: /ServiceB
+#       #   pathType: Prefix
+#       #   backend:
+#       #     service:
+#       #       name: bitcoin-value-b
+#       #       port:
+#       #         number: 80
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: bitcoin-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx
+  rules:
+  - http:
+      paths:
+      # - path: /hello-world-one(/|$)(.*)
+      #   pathType: Prefix
+      #   backend:
+      #     service:
+      #       name: aks-helloworld-one
+      #       port:
+      #         number: 80
+      # - path: /hello-world-two(/|$)(.*)
+      #   pathType: Prefix
+      #   backend:
+      #     service:
+      #       name: aks-helloworld-two
+      #       port:
+      #         number: 80
+      - path: /ServiceA
+        pathType: Prefix
+        backend:
+          service:
+            name: bitcoin-value-a
+            port:
+              number: 5000
+---
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: hello-world-ingress-static
+#   namespace: sample
+#   annotations:
+#     nginx.ingress.kubernetes.io/ssl-redirect: "false"
+#     nginx.ingress.kubernetes.io/rewrite-target: /static/$2
+# spec:
+#   ingressClassName: nginx
+#   rules:
+#   - http:
+#       paths:
+#       - path: /static(/|$)(.*)
+#         pathType: Prefix
+#         backend:
+#           service:
+#             name: aks-helloworld-one
+#             port:
+#               number: 80
+# # kubectl apply -f ingress-no-ssl.yaml -n sample
