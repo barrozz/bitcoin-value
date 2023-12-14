@@ -10,6 +10,7 @@
 .terraform.lock.hcl
 .DS_Store
 
+connect.to.cluster
 
 # Crash log files
 crash.log
