@@ -19,12 +19,12 @@ spec:
             - containerPort: 5000
               # hostPort: 5000
               # protocol: TCP
-          livenessProbe:
-            httpGet:
-              path: /
-              port: 5000
-            initialDelaySeconds: 3
-            periodSeconds: 3
+          # livenessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: 5000
+          #   initialDelaySeconds: 3
+          #   periodSeconds: 3
           # readinessProbe:
           #   httpGet:
           #     path: /readiness
@@ -36,19 +36,6 @@ spec:
       #   - name: acr-secret
 
 ---
-# apiVersion: v1
-# kind: Service
-# metadata:
-#   name: bitcoin-value-a-loadbalancer
-# spec:
-#   type: LoadBalancer
-#   ports:
-#   - port: 80
-#     targetPort: 5000
-#     protocol: TCP
-#   selector:
-#     app: bitcoin-value-a
-# ---
 apiVersion: v1
 kind: Service
 metadata:
@@ -56,7 +43,7 @@ metadata:
 spec:
   type: ClusterIP
   ports:
-  - port: 5000
+  - port: 80
     targetPort: 5000
     protocol: TCP
   selector:
