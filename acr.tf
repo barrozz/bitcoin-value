@@ -25,22 +25,3 @@ resource "azurerm_container_registry" "acr" {
 output "container_registry_login_server" {
   value = azurerm_container_registry.acr.login_server
 }
-
-
-# data "azurerm_container_registry" "bitcoinvalues" {
-#   name                = "bitcoinvalues"
-#   resource_group_name = azurerm_resource_group.aks-rg.name
-# }
-
-# Allow AKS Cluster access to Azure Container Registry
-resource "azurerm_role_assignment" "role_acrpull" {
-  principal_id                     = azurerm_kubernetes_cluster.aks.kubelet_identity.0.object_id
-  role_definition_name             = "AcrPull"
-  scope                            = azurerm_container_registry.acr.id
-  skip_service_principal_aad_check = true
-
-  depends_on = [
-    azurerm_container_registry.acr,
-    azurerm_kubernetes_cluster.aks
-  ]
-}
